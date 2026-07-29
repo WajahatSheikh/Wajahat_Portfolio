@@ -8,6 +8,14 @@ export const nav = [
 
 export const resumeLink = "#";
 
+export const heroRoles = [
+  "engineers.",
+  "tech startups.",
+  "product owners.",
+  "business owners.",
+  "founders.",
+];
+
 export const timeline = [
   {
     range: "Aug 2023 — Present",

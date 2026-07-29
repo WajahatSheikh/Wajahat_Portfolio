@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
-import { timeline } from "../data/content";
+import { timeline, heroRoles } from "../data/content";
 import { useContact } from "../context/ContactContext";
 
 const lines = ["I'm Wajahat Sheikh,", "a product designer", "who works with"];
@@ -10,6 +10,9 @@ export default function Hero() {
   const headlineRef = useRef(null);
   const timelineRef = useRef(null);
   const ctaRef = useRef(null);
+  const roleRef = useRef(null);
+  const isFirstRole = useRef(true);
+  const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,6 +39,37 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const el = roleRef.current;
+      if (!el) return;
+      gsap.to(el, {
+        rotateX: 90,
+        opacity: 0,
+        duration: 0.35,
+        ease: "power2.in",
+        onComplete: () => {
+          setRoleIndex((i) => (i + 1) % heroRoles.length);
+        },
+      });
+    }, 2600);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const el = roleRef.current;
+    if (!el) return;
+    if (isFirstRole.current) {
+      isFirstRole.current = false;
+      return;
+    }
+    gsap.fromTo(
+      el,
+      { rotateX: -90, opacity: 0 },
+      { rotateX: 0, opacity: 1, duration: 0.35, ease: "power2.out" },
+    );
+  }, [roleIndex]);
+
   return (
     <section id="top" className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 md:flex-row md:items-start md:justify-between md:px-10">
@@ -49,9 +83,16 @@ export default function Hero() {
                 <span className="hero-line-inner block">{line}</span>
               </span>
             ))}
-            <span className="hero-line block overflow-hidden">
-              <span className="hero-line-inner block text-accent italic">
-                engineers.
+            <span
+              className="hero-line block overflow-hidden"
+              style={{ perspective: 600 }}
+            >
+              <span
+                ref={roleRef}
+                className="hero-line-inner block text-accent italic"
+                style={{ transformOrigin: "50% 50%" }}
+              >
+                {heroRoles[roleIndex]}
               </span>
             </span>
           </h1>
