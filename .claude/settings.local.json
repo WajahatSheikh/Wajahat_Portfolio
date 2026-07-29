@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(npm run *)",
+      "Bash(node -e \"const m = require\\('/home/kamranali/CreativeWajahat/node_modules/lucide-react/dist/cjs/lucide-react.js'\\); console.log\\(Object.keys\\(m\\).filter\\(k => /linkedin|instagram|Instagram|Linkedin/i.test\\(k\\)\\)\\)\")",
+      "Bash(node *)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(npm ls *)",
+      "Read(//root/.cache/**)",
+      "Read(//home/kamranali/.cache/**)",
+      "Bash(google-chrome --version)",
+      "Bash(npm view *)"
+    ]
+  }
+}
