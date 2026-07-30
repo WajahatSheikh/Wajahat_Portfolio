@@ -18,121 +18,127 @@ export const heroRoles = [
 
 export const timeline = [
   {
-    range: "Aug 2023 — Present",
-    role: "AI Product Designer",
-    place: "Goalytics",
+    range: "Aug 2024 – Present",
+    company: "Digital Gravity (Goalytics)",
+    role: "Sr. Product Designer",
   },
   {
-    range: "Aug 2022 — Aug 2023",
-    role: "Product Designer",
-    place: "Paramount Products",
+    range: "Jan 2022 – Aug 2024",
+    company: "Paramount Students",
+    role: "Head of Product Design",
   },
   {
-    range: "Aug 2020 — Aug 2022",
+    range: "Apr 2020 – Oct 2020",
+    company: "Digital Gravity",
     role: "UI/UX Designer",
-    place: "Digital Dazzlerz",
   },
   {
-    range: "Aug 2017 — Sep 2020",
-    role: "Junior Designer",
-    place: "WAPDA / Wafaqi Pakistan",
+    range: "Dec 2017 – Apr 2020",
+    company: "SABAQ · Multinet Pakistan",
+    role: "Game UI/UX Designer",
   },
 ];
 
 export const projects = [
   {
     title: "Goalytics: The AI Engine Behind Every Goal",
-    tags: ["Product Design", "AI Products"],
+    tags: ["Product Design", "progressing"],
     image: null,
-    accent: "orange",
   },
   {
-    title: "Management system for the Biggest logistic firm in UAE",
-    tags: ["Web Management System", "Business Dashboard"],
+    title: "Management system Biggest logistic firm in UAE",
+    tags: ["web management system", "delivered 2026"],
     image: null,
-    accent: "orange",
   },
   {
     title: "High School to University — in Just 03 Clicks!",
-    tags: ["Mobile App", "Education"],
+    tags: ["Mobile app", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
   {
     title: "Where Kids Learn by Playing",
-    tags: ["Game Design", "Mobile App"],
+    tags: ["game design", "Mobile app", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
   {
     title: "Centralized Admission System dashboard for Universities",
-    tags: ["Web Management System", "Education"],
+    tags: ["web management system", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
   {
     title: "Quiz to Customized Health Pack in few minutes",
-    tags: ["Website", "Health"],
+    tags: ["Website", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
   {
     title: "University Of Sharjah",
-    tags: ["Website", "Education"],
+    tags: ["website", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
   {
     title: "A Space for Students to Belong, Create, and Connect.",
-    tags: ["Website", "Community"],
+    tags: ["Mobile app", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
   {
     title: "Flutter Word",
-    tags: ["Game Design", "Mobile App"],
-    image: null,
-    accent: "game",
-    gradient: "from-sky-400 via-cyan-300 to-emerald-300",
+    tags: ["game design", "Mobile app", "delivered 2023"],
+    image: "flutter-word",
   },
   {
     title: "Strike A Balance",
-    tags: ["Game Design", "Mobile App"],
-    image: null,
-    accent: "game",
-    gradient: "from-violet-600 via-fuchsia-500 to-orange-400",
+    tags: ["game design", "Mobile app", "delivered 2023"],
+    image: "strike-a-balance",
   },
   {
-    title: "Arcfix — Save the Polar Bear",
-    tags: ["Game Design", "Mobile App"],
-    image: null,
-    accent: "game",
-    gradient: "from-cyan-400 via-blue-400 to-indigo-500",
+    title: "Arcfix save the polar bear",
+    tags: ["game design", "Mobile app", "delivered 2023"],
+    image: "arcfix",
   },
   {
     title: "Campus Housing in Your Pocket",
-    tags: ["Mobile App", "Education"],
+    tags: ["Mobile app", "delivered 2023"],
     image: null,
-    accent: "orange",
   },
 ];
 
 export const aboutParagraphs = [
-  "I'm a Senior Product Designer with 8+ years turning early-stage ideas into products people actually use — from a fresh sketch through to a shipped MVP.",
-  "Right now I'm building Goalytics, an AI-powered OCR platform, from a blank canvas: information architecture, design system, and interface, all within one design lifecycle. Before that, I led product design at a logistics startup where prototypes helped the team secure $200K in seed funding, and designed 25+ award-winning eLearning apps that shipped inside the MVP learning window.",
-  "I think in systems, not screens. The work I enjoy most is sitting with a Product Owner to turn a messy business problem into a clear, clean flow — then building the components so the rest of the team can focus without reinventing the wheel.",
-  "I've led design across teams in Pakistan and Türkiye, with collaborators from 10+ nationalities, and I still start every project the same way: understand how people actually work, then design around that.",
+  [
+    {
+      text: "I'm a Senior Product Designer with 8+ years turning early-stage ideas into products people actually use — from a first sketch through to a ",
+    },
+    { text: "shipped MVP", bold: true },
+    { text: "." },
+  ],
+  [
+    { text: "Right now I'm building Goalytics, an " },
+    { text: "AI-powered OKR platform", bold: true },
+    {
+      text: ", from a blank canvas: information architecture, design system, and interface, all within one design lifecycle. Before that, I led design at Paramount Students, where investor-ready prototypes helped the team ",
+    },
+    { text: "secure $200K in seed funding", bold: true },
+    { text: ", and designed " },
+    { text: "25+ award-winning EdTech games", bold: true },
+    { text: " that shipped inside the MUSE Learning App." },
+  ],
+  [
+    {
+      text: "I think in systems, not screens. The work I enjoy most is sitting with a Product Owner to turn a messy business problem into a clear user flow — then building the components so the rest of the team can move fast without reinventing the wheel.",
+    },
+  ],
+  [
+    {
+      text: "I've led design across teams in Pakistan and Türkiye, with collaborators from 10+ nationalities, and I still start every project the same way: understand how people actually work, then design around that.",
+    },
+  ],
 ];
 
 export const badges = [
-  "Best App 2023",
-  "Design Excellence",
-  "Top Rated Designer",
-  "Product Award",
-  "UX Certified",
-  "Innovation Prize",
-  "5-Star Partner",
-  "Design Leadership",
+  { name: "GESS Education Awards", file: "gess-award" },
+  { name: "PDA Best Digital Innovation", file: "pda" },
+  { name: "National Innovation Awards", file: "national-innovation" },
+  { name: "Next Billion EdTech Prize", file: "next-billion" },
+  { name: "P@SHA ICT Awards", file: "pasha" },
 ];
 
 export const services = [
@@ -146,37 +152,37 @@ export const services = [
     number: "02",
     title: "Design System",
     description:
-      "Tokens, components and documentation so teams move faster without breaking consistency.",
+      "Tokens, components and documentation so every team ships the same product, faster.",
   },
   {
     number: "03",
     title: "Mobile App",
     description:
-      "iOS and Android product design, from first sketch through to an interactive prototype.",
+      "iOS and Android flows designed around thumbs, context and one-handed use.",
   },
   {
     number: "04",
     title: "SaaS Platform",
     description:
-      "Dashboards, data and complex workflows made simple for daily active users.",
+      "Dashboards, data and dense workflows made calm enough to live in every day.",
   },
   {
     number: "05",
     title: "Website",
     description:
-      "Marketing sites that load fast, feel sharp and convert visitors into customers.",
+      "Marketing sites that load fast, read clearly and turn visitors into conversations.",
   },
   {
     number: "06",
     title: "Management System",
     description:
-      "Admin panels that give teams full visibility and control over their operations.",
+      "Admin panels, CRMs and internal tools built for speed over decoration.",
   },
   {
     number: "07",
     title: "Game Design",
     description:
-      "Playful UI/UX and onboarding flows that keep players coming back for more.",
+      "Game UI, HUDs and onboarding that keep players in the world, not in the menu.",
   },
 ];
 
@@ -184,131 +190,140 @@ export const techStack = [
   {
     name: "Figma",
     description:
-      "Where every design lives — from wireframes to full interactive prototypes.",
-    color: "#1E1E1E",
+      "Where every design lives — from lo-fi wireframes to the design system components engineering pulls straight into production.",
+    icon: "Figma",
   },
   {
     name: "Adobe Illustrator",
     description:
-      "For icon and brand work; keeps vector shapes and layouts pixel-precise.",
-    color: "#FF9A00",
+      "For icon sets, brand marks, and vector illustration work that needs to stay crisp at any size.",
+    icon: "Illustrator",
   },
   {
     name: "Adobe Photoshop",
     description:
-      "Photo compositing and mockup polish for case studies and presentations.",
-    color: "#31A8FF",
+      "Photo composites and mockup polish for case studies and pitch-ready presentation visuals.",
+    icon: "PS",
   },
   {
     name: "Notion",
     description:
-      "My single source of truth — research notes, specs and project docs in one place.",
-    color: "#111114",
+      "My single source of truth — research notes, sprint docs, and design specs the whole team can search.",
+    icon: "Notion",
   },
   {
     name: "Claude Code",
     description:
-      "My design-to-code partner, turning quick prototypes and Figma files into real code.",
-    color: "#D97757",
+      "AI-assisted design workflows: turning rough flows into working prototypes and Figma files faster.",
+    icon: "Claudecode",
   },
   {
     name: "Mobbin",
     description:
-      "A daily reference library — real product patterns from thousands of shipped apps.",
-    color: "#111114",
+      "A daily reference library — real shipped patterns that keep my flows grounded in what already works.",
+    icon: "Mobbin",
   },
   {
     name: "Slack",
     description:
-      "Async collaboration with distributed teams, from quick check-ins to deep feedback threads.",
-    color: "#4A154B",
+      "Async-first collaboration with distributed teams across Pakistan, Türkiye, and beyond.",
+    icon: "Slack",
   },
   {
     name: "Trello",
     description:
-      "Lightweight task tracking for solo projects and small teams that move fast.",
-    color: "#0079BF",
+      "Lightweight task tracking for design sprints, when a full ticketing system would just slow things down.",
+    icon: "Trello",
   },
   {
     name: "Jira",
     description:
-      "Where PMs plan sprints and track work across the wider product and engineering org.",
-    color: "#0052CC",
+      "Where OKR-driven design work gets scoped, estimated, and handed off without losing context.",
+    icon: "Jira",
   },
   {
     name: "Fathom",
     description:
-      "Records meetings automatically so I can stay present instead of taking notes.",
-    color: "#3F5DF6",
+      "Auto-transcribes stakeholder calls so I can stay in the conversation instead of taking notes.",
+    icon: "Fathom",
   },
   {
     name: "Framer",
     description:
-      "For high-fidelity, interactive prototypes that feel like the real shipped product.",
-    color: "#0055FF",
+      "For high-fidelity, interactive prototypes that test like the real product before a line of code ships.",
+    icon: "Framer",
   },
   {
     name: "ChatGPT",
     description:
-      "A thinking partner for research, copy drafts and quick sanity checks.",
-    color: "#10A37F",
+      "A thinking partner for first drafts — UX copy, edge cases, and stress-testing a flow before I commit to it.",
+    icon: "ChatGpt",
   },
 ];
 
 export const testimonials = [
   {
-    name: "Hasaan Bin Rizwan",
-    title: "Founder, Fabrick Studios",
+    name: "Hassan Bin Rizwan",
+    title: "P@SHA, SABAQ (Director)",
     quote:
-      "Wajahat asked sharper questions about our users than anyone on the team had before. The MVP he shaped is still the backbone of our product today.",
+      "Wajahat played a key role in our Co-Pilot project, seamlessly integrating it into game design. His innovative approach to educational technology has transformed the MUSE app, creating engaging learning experiences for children. We appreciate his dedication and the positive impact he has made.",
+    avatar: "Frame 57",
   },
   {
     name: "Muhammad Umair",
-    title: "General Manager, Digital Dazzlerz",
+    title: "Service Delivery Manager (SDM)",
     quote:
-      "Rare to find a designer who can flip between brand identity and complex dashboards in the same week without dropping quality on either.",
+      "I highly recommend him as a best product designer. His exceptional design skills and attention to detail were evident throughout his time working under me. Wajahat consistently delivered visually appealing and user-centric designs, collaborating effectively with cross-functional teams.",
+    avatar: "Frame 58",
   },
   {
-    name: "Nida Mehtab Gillo",
-    title: "Beauty & Cosmetic Expert, CEO",
+    name: "Nida Mehtab Gillio",
+    title: "Goalytics & Caryatid (Founder & CEO)",
     quote:
-      "He turned a vague idea into a beautiful, usable app in weeks — and made our whole team feel heard through every round of feedback.",
+      "Wajahat is our founding designer. I have always maintained direct communication with him to brainstorm ideas. He is professional and composed, always asking what problems we are addressing. He translates our concepts into functional features from 0→1, guiding us in building a fully operational MVP.",
+    avatar: "Frame 57-1",
   },
   {
-    name: "Azeem Syed",
-    title: "Product Manager, Paramount Products",
+    name: "Azeem Ilyas",
+    title: "AA Animation Studio (Founder)",
     quote:
-      "Wajahat designs like an engineer thinks. Every component he ships already anticipates the edge cases before we even raise them.",
+      "Wajahat is one of the best designers I know in my network. We have worked together in the same organization. He is a very dedicated and hardworking individual. I love his game designs, and we have completed many projects together.",
+    avatar: "Frame 57-2",
   },
   {
-    name: "Suhail Saad Parveen",
-    title: "Co-Founder, Campus Housing",
+    name: "Suhail Sajid Panjwani",
+    title: "Paramount Students (CMO)",
     quote:
-      "From wireframe to shipped app in one sprint cycle — his systems-first approach saved us months of rework.",
+      "It has been such an honor to work side by side with him to build something extraordinary. We didn't just solve a problem; we saved the educational futures of many students. He is a true leader and a great mentor on our team.",
+    avatar: "Frame 57-3",
   },
   {
     name: "Agha Zeeshan",
-    title: "Creative Director, Framer Partner",
+    title: "Goalytics (Product Owner)",
     quote:
-      "One of the few product designers whose game UI and enterprise dashboards both feel genuinely delightful to use.",
+      "My experience with Wajahat has been refreshingly different. He consistently demonstrates humility and professionalism. Wajahat approaches design with a logical mindset, always considering the development costs while ensuring the best outcomes.",
+    avatar: "image 6",
   },
   {
     name: "Abdul Basit",
-    title: "Quality Assurance Lead",
+    title: "Goalytics (AI/Python Engineer)",
     quote:
-      "Every handoff from Wajahat comes documented, tokenized and ready to build — QA cycles got noticeably shorter after he joined.",
+      "Wajahat is a great designer and truly great to work with. He is a super fast worker, communicates well and is true talent in the history. If you have a chance to work with him, take it!",
+    avatar: "Frame 57-4",
   },
   {
-    name: "Ayesha Abdul Rab",
-    title: "Founder, Bahar Boutique",
+    name: "Aysha Abdul Rab",
+    title: "Founder of Global Minds Education",
     quote:
-      "He explained every decision in plain language and never made me feel like a non-designer in the room. The results spoke for themselves.",
+      "We hired him as a freelance website designer and branding expert to elevate our small startup to the next level. I truly admire his commitment and attention to communication. He advised us not only on design but also on some technical business go-to-market strategies.",
+    avatar: "image 4",
   },
   {
-    name: "Khalid Bouchala",
-    title: "Founder & CEO",
+    name: "Khalid Boulhala",
+    title: "Founder & CEO @ Plentora",
     quote:
-      "Wajahat doesn't just deliver screens, he delivers a way of thinking about the product that our whole team still uses.",
+      "I don't want to make a traditional statement about him. He played a crucial role in helping us secure $200K in funding through their design flow prototypes, which accelerated our operations.",
+    avatar: "image 5",
   },
 ];
 
@@ -318,7 +333,8 @@ export const contact = {
   location: "Karachi, PK",
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Behance", href: "https://behance.net" },
-    { label: "Instagram", href: "https://instagram.com" },
+    { label: "Medium", href: "https://medium.com" },
+    { label: "X (Twitter)", href: "https://x.com" },
+    { label: "WhatsApp", href: "https://wa.me/923222600937" },
   ],
 };

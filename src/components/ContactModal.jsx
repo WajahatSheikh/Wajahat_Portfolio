@@ -18,25 +18,23 @@ function CopyRow({ icon: Icon, iconBg, label, value }) {
   };
 
   return (
-    <div className="flex items-center gap-4 py-4">
+    <div className="flex w-full items-center gap-3">
       <span
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white"
+        className="flex shrink-0 items-center justify-center rounded-lg p-2 text-white"
         style={{ backgroundColor: iconBg }}
       >
-        <Icon size={20} />
+        <Icon size={24} />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-[10px] font-semibold tracking-widest text-ink-faint uppercase">
-          {label}
-        </p>
-        <p className="truncate text-sm font-medium text-ink">{value}</p>
+        <p className="font-geist-mono text-xs text-muted uppercase">{label}</p>
+        <p className="truncate font-geist text-[15px] text-heading">{value}</p>
       </div>
       <button
         type="button"
         aria-label={`Copy ${label}`}
         data-cursor="hover"
         onClick={handleCopy}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line text-ink-soft transition-colors hover:border-accent hover:text-accent"
+        className="flex size-7 shrink-0 items-center justify-center rounded-md text-muted transition-colors hover:text-accent"
       >
         {copied ? <Check size={15} className="text-emerald-500" /> : <Copy size={15} />}
       </button>
@@ -62,8 +60,8 @@ export default function ContactModal() {
     gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 });
     gsap.fromTo(
       modalRef.current,
-      { opacity: 0, y: 24, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" },
+      { opacity: 0, y: 16, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "power3.out" },
     );
 
     return () => {
@@ -73,10 +71,10 @@ export default function ContactModal() {
   }, [isOpen, closeContact]);
 
   const handleClose = () => {
-    gsap.to(modalRef.current, { opacity: 0, y: 16, scale: 0.96, duration: 0.25, ease: "power2.in" });
+    gsap.to(modalRef.current, { opacity: 0, y: 12, scale: 0.96, duration: 0.2, ease: "power2.in" });
     gsap.to(backdropRef.current, {
       opacity: 0,
-      duration: 0.25,
+      duration: 0.2,
       delay: 0.05,
       onComplete: () => {
         gsap.set(backdropRef.current, { display: "none" });
@@ -89,7 +87,7 @@ export default function ContactModal() {
     <div
       ref={backdropRef}
       onClick={(e) => e.target === backdropRef.current && handleClose()}
-      className="fixed inset-0 z-[90] hidden items-center justify-center bg-ink/40 px-5 backdrop-blur-sm"
+      className="fixed inset-0 z-[90] hidden items-start justify-center bg-heading/20 px-5 pt-28"
       style={{ display: "none" }}
     >
       <div
@@ -97,24 +95,29 @@ export default function ContactModal() {
         role="dialog"
         aria-modal="true"
         aria-label="Get in touch"
-        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl"
+        className="flex w-full max-w-[380px] flex-col gap-4 rounded-2xl bg-white p-5 shadow-[0_4px_12px_rgba(12,12,13,0.1),0_1px_4px_rgba(12,12,13,0.05)]"
       >
-        <div className="flex items-start justify-between">
-          <h3 className="text-lg font-semibold text-ink">Get in Touch</h3>
+        <div className="flex w-full items-center justify-between">
+          <h3 className="font-geist text-lg leading-6 font-semibold text-heading">Get in Touch</h3>
           <button
             type="button"
             aria-label="Close"
             data-cursor="hover"
             onClick={handleClose}
-            className="text-ink-faint transition-colors hover:text-ink"
+            className="text-muted transition-colors hover:text-heading"
           >
             <X size={20} />
           </button>
         </div>
-        <p className="mt-1 text-sm text-ink-soft">I usually reply within a day.</p>
 
-        <div className="mt-4 divide-y divide-line border-t border-line">
-          <CopyRow icon={Mail} iconBg="#ea5a2b" label="Email" value={contact.email} />
+        <p className="font-geist text-sm leading-[22px] text-muted">
+          I usually reply within a day.
+        </p>
+
+        <div className="h-px w-full bg-muted/15" />
+
+        <div className="flex w-full flex-col gap-4">
+          <CopyRow icon={Mail} iconBg="#f77332" label="Email" value={contact.email} />
           <CopyRow icon={MessageCircle} iconBg="#25D366" label="WhatsApp" value={contact.whatsapp} />
         </div>
       </div>

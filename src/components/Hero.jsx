@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
 import { timeline, heroRoles } from "../data/content";
-import { useContact } from "../context/ContactContext";
 
-const lines = ["I'm Wajahat Sheikh,", "a product designer", "who works with"];
+const lines = ["I'm Wajahat Sheikh, a product", "designer who works with"];
 
 export default function Hero() {
-  const { openContact } = useContact();
   const headlineRef = useRef(null);
   const timelineRef = useRef(null);
-  const ctaRef = useRef(null);
   const roleRef = useRef(null);
   const isFirstRole = useRef(true);
   const [roleIndex, setRoleIndex] = useState(0);
@@ -22,19 +19,12 @@ export default function Hero() {
         headlineRef.current.querySelectorAll(".hero-line-inner"),
         { yPercent: 110 },
         { yPercent: 0, duration: 1, ease: "power4.out", stagger: 0.12 },
-      )
-        .fromTo(
-          ctaRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-          "-=0.4",
-        )
-        .fromTo(
-          timelineRef.current?.children || [],
-          { x: 30, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" },
-          "-=0.5",
-        );
+      ).fromTo(
+        timelineRef.current,
+        { x: 30, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+        "-=0.5",
+      );
     });
     return () => ctx.revert();
   }, []);
@@ -71,58 +61,50 @@ export default function Hero() {
   }, [roleIndex]);
 
   return (
-    <section id="top" className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 md:flex-row md:items-start md:justify-between md:px-10">
-        <div>
-          <h1
-            ref={headlineRef}
-            className="text-4xl leading-[1.1] font-medium tracking-tight text-ink sm:text-5xl md:text-6xl"
-          >
-            {lines.map((line) => (
-              <span key={line} className="hero-line block overflow-hidden">
-                <span className="hero-line-inner block">{line}</span>
-              </span>
-            ))}
-            <span
-              className="hero-line block overflow-hidden"
-              style={{ perspective: 600 }}
-            >
-              <span
-                ref={roleRef}
-                className="hero-line-inner block text-accent italic"
-                style={{ transformOrigin: "50% 50%" }}
-              >
-                {heroRoles[roleIndex]}
-              </span>
-            </span>
-          </h1>
-
-          <div ref={ctaRef} className="mt-8">
-            <button
-              type="button"
-              data-cursor="hover"
-              onClick={openContact}
-              className="rounded-full bg-accent px-6 py-3 text-xs font-semibold tracking-wide text-white uppercase transition-transform duration-300 hover:scale-105 hover:bg-accent-dark"
-            >
-              Contact Me
-            </button>
-          </div>
-        </div>
-
-        <div
-          ref={timelineRef}
-          className="grid w-full max-w-xs grid-cols-1 gap-4 text-right md:w-auto md:shrink-0"
+    <section id="top" className="relative overflow-hidden bg-surface-soft pt-24 pb-10 md:pt-32 xl:pt-[160px] xl:pb-[40px]">
+      <div className="mx-auto flex max-w-[1920px] flex-col gap-12 px-5 md:px-10 lg:flex-row lg:items-center lg:gap-16 xl:gap-[165px] xl:px-[100px]">
+        <h1
+          ref={headlineRef}
+          className="max-w-2xl font-tiempos text-[32px] leading-[1.2] text-heading sm:text-[40px] lg:max-w-[789px] lg:flex-1 lg:text-[52px]"
         >
-          {timeline.map((item) => (
-            <div key={item.range} className="grid grid-cols-[auto_1fr] gap-4 border-b border-line pb-3 text-left">
-              <span className="text-[11px] whitespace-nowrap text-ink-faint uppercase">{item.range}</span>
-              <span className="text-[11px] text-ink-soft uppercase">
-                {item.role}
-                <br />
-                <span className="text-ink-faint">{item.place}</span>
-              </span>
-            </div>
+          {lines.map((line) => (
+            <span key={line} className="hero-line block overflow-hidden">
+              <span className="hero-line-inner block">{line}</span>
+            </span>
           ))}
+          <span className="hero-line block overflow-hidden" style={{ perspective: 600 }}>
+            <span
+              ref={roleRef}
+              className="hero-line-inner block text-accent italic"
+              style={{ transformOrigin: "50% 50%" }}
+            >
+              {heroRoles[roleIndex]}
+            </span>
+          </span>
+        </h1>
+
+        <div ref={timelineRef} className="font-geist-mono text-sm lg:shrink-0">
+          <div className="flex flex-col gap-4 lg:hidden">
+            {timeline.map((item) => (
+              <div key={item.range} className="flex flex-col gap-0.5">
+                <span className="text-muted">{item.range}</span>
+                <span className="font-geist font-medium text-heading">{item.company}</span>
+                <span className="font-geist text-muted">{item.role}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden grid-cols-[auto_auto_auto] gap-x-10 gap-y-3 lg:grid">
+            {timeline.map((item) => (
+              <Fragment key={item.range}>
+                <span className="whitespace-nowrap text-muted">{item.range}</span>
+                <span className="whitespace-nowrap font-geist font-medium text-heading">
+                  {item.company}
+                </span>
+                <span className="whitespace-nowrap font-geist text-muted">{item.role}</span>
+              </Fragment>
+            ))}
+          </div>
         </div>
       </div>
     </section>

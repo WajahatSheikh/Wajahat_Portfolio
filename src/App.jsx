@@ -1,4 +1,5 @@
 import { ContactProvider } from "./context/ContactContext";
+import { useSmoothScroll } from "./lib/smoothScroll";
 import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -11,6 +12,8 @@ import Footer from "./components/Footer";
 import ContactModal from "./components/ContactModal";
 
 function App() {
+  useSmoothScroll();
+
   return (
     <ContactProvider>
       <CustomCursor />
