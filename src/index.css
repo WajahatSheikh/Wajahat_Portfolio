@@ -1,17 +1,81 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/GeistMono/Geist-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist/Geist-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/GeistMono/Geist-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono/GeistMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono/GeistMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Test Tiempos Text";
+  src: url("/fonts/TestTiemposText/TestTiemposText-Regular-BF66457a50cd521.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Test Tiempos Text";
+  src: url("/fonts/TestTiemposText/TestTiemposText-RegularItalic-BF66457a50421c2.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-geist: "Geist", ui-sans-serif, sans-serif;
+  --font-geist-mono: "Geist Mono", ui-monospace, monospace;
+  --font-tiempos: "Test Tiempos Text", Georgia, serif;
 
   --color-ink: #16161a;
   --color-ink-soft: #4b4b52;
   --color-ink-faint: #8a8a92;
 
-  --color-accent: #ea5a2b;
-  --color-accent-dark: #c94a20;
+  --color-heading: #32404f;
+  --color-muted: #676767;
+
+  --color-accent: #f77332;
+  --color-accent-dark: #d2622b;
+  --color-accent-ivory: #fff9eb;
 
   --color-surface: #ffffff;
   --color-surface-alt: #f7f6f4;
+  --color-surface-soft: #fafcfd;
   --color-line: #e7e5e1;
 
   --color-night: #111014;
@@ -19,8 +83,17 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  html.lenis {
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
   }
 
   body {
