@@ -61,7 +61,7 @@ export default function Hero() {
   }, [roleIndex]);
 
   return (
-    <section id="top" className="relative overflow-hidden bg-surface-soft pt-24 pb-10 md:pt-32 xl:pt-[160px] xl:pb-[40px]">
+    <section id="top" className="relative overflow-hidden bg-surface-soft pt-24  md:pt-32 xl:pt-[160px] xl:pb-[0px]">
       <div className="mx-auto flex max-w-[1920px] flex-col gap-12 px-5 md:px-10 lg:flex-row lg:items-center lg:gap-16 xl:gap-[165px] xl:px-[100px]">
         <h1
           ref={headlineRef}
@@ -94,7 +94,7 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="hidden grid-cols-[auto_auto_auto] gap-x-10 gap-y-3 lg:grid">
+          <div className="hidden grid-cols-[auto_auto_auto] gap-x-10 gap-y-2 lg:grid">
             {timeline.map((item) => (
               <Fragment key={item.range}>
                 <span className="whitespace-nowrap text-muted">{item.range}</span>

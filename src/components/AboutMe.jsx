@@ -78,7 +78,7 @@ export default function AboutMe() {
                 key={badge.file}
                 src={badgeImages[badge.file]}
                 alt={badge.name}
-                className="h-24 min-w-0 flex-1 object-contain sm:h-32 lg:h-[152px]"
+                className="h-16 min-w-0 flex-1 object-contain drop-shadow-[0_4px_6px_rgba(16,20,25,0.15)] sm:h-24 md:h-28 lg:h-[152px]"
               />
             ))}
           </Reveal>

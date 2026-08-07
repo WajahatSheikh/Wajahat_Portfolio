@@ -55,7 +55,7 @@ export default function ProjectCard({ project, index }) {
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         data-cursor="hover"
-        className="cursor-pointer p-3"
+        className="cursor-pointer"
       >
         <div className="relative aspect-[766/549] w-full overflow-hidden">
           <div
