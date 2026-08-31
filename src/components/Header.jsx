@@ -96,7 +96,9 @@ export default function Header() {
             </a>
           </nav>
 
-          <ContactButton className="hidden shrink-0 xl:inline-flex" />
+          <div className="hidden shrink-0 xl:block">
+            <ContactButton />
+          </div>
 
           <button
             type="button"

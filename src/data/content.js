@@ -44,6 +44,7 @@ export const projects = [
     title: "Goalytics: The AI Engine Behind Every Goal",
     tags: ["Product Design", "progressing"],
     image: null,
+    featuredBg: true,
   },
   {
     title: "Management system Biggest logistic firm in UAE",
@@ -147,42 +148,49 @@ export const services = [
     title: "Brand Identity Design",
     description:
       "Logos, typography and visual language that make a company recognizable at a glance.",
+    preview: null,
   },
   {
     number: "02",
     title: "Design System",
     description:
       "Tokens, components and documentation so every team ships the same product, faster.",
+    preview: null,
   },
   {
     number: "03",
     title: "Mobile App",
     description:
       "iOS and Android flows designed around thumbs, context and one-handed use.",
+    preview: null,
   },
   {
     number: "04",
     title: "SaaS Platform",
     description:
       "Dashboards, data and dense workflows made calm enough to live in every day.",
+    preview: null,
   },
   {
     number: "05",
     title: "Website",
     description:
       "Marketing sites that load fast, read clearly and turn visitors into conversations.",
+    preview: null,
   },
   {
     number: "06",
     title: "Management System",
     description:
       "Admin panels, CRMs and internal tools built for speed over decoration.",
+    preview: null,
   },
   {
     number: "07",
     title: "Game Design",
     description:
       "Game UI, HUDs and onboarding that keep players in the world, not in the menu.",
+    preview: null,
   },
 ];
 
