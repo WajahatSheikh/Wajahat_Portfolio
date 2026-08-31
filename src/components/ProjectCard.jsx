@@ -4,6 +4,7 @@ import Reveal from "./Reveal";
 import flutterWord from "../assets/projects/flutter-word.png";
 import strikeABalance from "../assets/projects/strike-a-balance.png";
 import arcfix from "../assets/projects/arcfix.png";
+import goalyticsLogo from "../assets/projects/goalytics-logo.svg";
 
 const images = {
   "flutter-word": flutterWord,
@@ -46,7 +47,13 @@ export default function ProjectCard({ project, index }) {
   };
 
   const image = images[project.image];
-  const isComingSoon = project.tags.includes("progressing");
+  const isComingSoon = project.tags.includes("progressing") && !project.featuredBg;
+  const hoverLabel = project.featuredBg
+    ? "View Overview"
+    : isComingSoon
+      ? "Publish Coming Soon"
+      : "Review Case Study";
+  const hoverIcon = isComingSoon ? hourglassIcon : viewIcon;
 
   return (
     <Reveal delay={(index % 2) * 0.1} y={50} className="group">
@@ -60,7 +67,7 @@ export default function ProjectCard({ project, index }) {
         <div className="relative aspect-[766/549] w-full overflow-hidden">
           <div
             ref={imgRef}
-            className={`h-full w-full ${image ? "" : "bg-accent"}`}
+            className={`h-full w-full ${image ? "" : project.featuredBg ? "mesh-gradient" : "bg-accent"}`}
           >
             {image && (
               <img
@@ -69,17 +76,22 @@ export default function ProjectCard({ project, index }) {
                 className="h-full w-full object-cover"
               />
             )}
+            {project.featuredBg && (
+              <div className="absolute inset-0 flex items-center justify-center p-8">
+                <img
+                  src={goalyticsLogo}
+                  alt={project.title}
+                  className="w-[45%] max-w-[280px] min-w-[140px]"
+                />
+              </div>
+            )}
           </div>
 
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <span className="inline-flex items-center gap-2.5 rounded-full bg-white px-5 py-3">
-              <img
-                src={isComingSoon ? hourglassIcon : viewIcon}
-                alt=""
-                className="size-6"
-              />
-              <span className="font-geist-mono text-[24px] leading-8 font-semibold whitespace-nowrap text-[#501e06] capitalize">
-                {isComingSoon ? "Publish Coming Soon" : "Review Case Study"}
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5">
+              <img src={hoverIcon} alt="" className="size-4" />
+              <span className="font-geist-mono text-[13px] leading-normal font-semibold whitespace-nowrap text-[#501e06] capitalize">
+                {hoverLabel}
               </span>
             </span>
           </div>

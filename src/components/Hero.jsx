@@ -61,7 +61,7 @@ export default function Hero() {
   }, [roleIndex]);
 
   return (
-    <section id="top" className="relative overflow-hidden bg-surface-soft pt-24  md:pt-32 xl:pt-[160px] xl:pb-[0px]">
+    <section id="top" className="relative overflow-hidden bg-surface-soft pt-24 md:pt-32 xl:pt-[240px] xl:pb-[0px]">
       <div className="mx-auto flex max-w-[1920px] flex-col gap-12 px-5 md:px-10 lg:flex-row lg:items-center lg:gap-16 xl:gap-[165px] xl:px-[100px]">
         <h1
           ref={headlineRef}
@@ -84,15 +84,13 @@ export default function Hero() {
         </h1>
 
         <div ref={timelineRef} className="font-geist-mono text-sm lg:shrink-0">
-          <div className="flex flex-col gap-4 lg:hidden">
-            {timeline.map((item) => (
-              <div key={item.range} className="flex flex-col gap-0.5">
-                <span className="text-muted">{item.range}</span>
-                <span className="font-geist font-medium text-heading">{item.company}</span>
-                <span className="font-geist text-muted">{item.role}</span>
-              </div>
-            ))}
-          </div>
+          <p className="text-muted lg:hidden">
+            Currently{" "}
+            <span className="font-geist font-medium text-heading">
+              @ {timeline[0].company}
+            </span>{" "}
+            · 8+ yrs experience
+          </p>
 
           <div className="hidden grid-cols-[auto_auto_auto] gap-x-10 gap-y-2 lg:grid">
             {timeline.map((item) => (
