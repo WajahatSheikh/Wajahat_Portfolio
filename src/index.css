@@ -1,5 +1,40 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Fonts
+
+   Open Sauce Sans is the display face — section titles, the hero and the
+   footer wordmark. Not on Google Fonts despite the name, so the woff2 files
+   are self-hosted here rather than pulled from a third-party CDN, matching how
+   every other face in this project is served.
+
+   Only 600 and 700 are shipped: every display and heading token sets weight
+   600, and 700 is there so nothing has to be synthesised. Add another cut only
+   if a token starts asking for one.
+   --------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Open Sauce Sans";
+  src: url("/fonts/OpenSauceSans/open-sauce-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  src: url("/fonts/OpenSauceSans/open-sauce-sans-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  src: url("/fonts/OpenSauceSans/open-sauce-sans-latin-800-normal.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: "Geist";
   src: url("/fonts/GeistMono/Geist-Regular.ttf") format("truetype");
@@ -7,7 +42,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Geist";
   src: url("/fonts/Geist/Geist-Medium.ttf") format("truetype");
@@ -15,7 +49,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Geist";
   src: url("/fonts/GeistMono/Geist-SemiBold.ttf") format("truetype");
@@ -23,7 +56,13 @@
   font-style: normal;
   font-display: swap;
 }
-
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist/Geist-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: "Geist Mono";
   src: url("/fonts/GeistMono/GeistMono-Regular.ttf") format("truetype");
@@ -31,7 +70,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Geist Mono";
   src: url("/fonts/GeistMono/GeistMono-Medium.ttf") format("truetype");
@@ -40,75 +78,458 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Test Tiempos Text";
-  src: url("/fonts/TestTiemposText/TestTiemposText-Regular-BF66457a50cd521.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Test Tiempos Text";
-  src: url("/fonts/TestTiemposText/TestTiemposText-RegularItalic-BF66457a50421c2.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
 @theme {
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-geist: "Geist", ui-sans-serif, sans-serif;
-  --font-geist-mono: "Geist Mono", ui-monospace, monospace;
-  --font-tiempos: "Test Tiempos Text", Georgia, serif;
+  /* -- Families ------------------------------------------------------- */
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-display: "Open Sauce Sans", "Geist", ui-sans-serif, sans-serif;
 
-  --color-ink: #16161a;
-  --color-ink-soft: #4b4b52;
-  --color-ink-faint: #8a8a92;
+  /* -- Colour / text -------------------------------------------------- */
+  --color-ink: #101018;
+  --color-ink-soft: #383843;
+  --color-ink-faint: #5e5e6a;
 
-  --color-heading: #32404f;
-  --color-muted: #676767;
+  /* -- Colour / brand + accent ---------------------------------------- */
+  --color-brand: #4737ff;
+  --color-brand-strong: #3529bf;
+  --color-brand-subtle: #f2f1ff;
+  --color-accent: #f75c03;
+  --color-accent-strong: #d94e00;
+  --color-accent-subtle: #fff1e8;
 
-  --color-accent: #f77332;
-  --color-accent-dark: #d2622b;
-  --color-accent-ivory: #fff9eb;
+  /* -- Colour / surface ----------------------------------------------- */
+  --color-canvas: #ffffff;
+  --color-muted: #eeeef2;
+  --color-night: #101018;
+  --color-night-soft: #bfbfc9;
 
-  --color-surface: #ffffff;
-  --color-surface-alt: #f7f6f4;
-  --color-surface-soft: #fafcfd;
-  --color-line: #e7e5e1;
+  /* -- Colour / border ------------------------------------------------ */
+  --color-line-subtle: #eeeef2;
+  --color-line: #dcdce3;
+  --color-line-strong: #bfbfc9;
 
-  --color-night: #111014;
-  --color-night-soft: #d8d6d2;
+  /* -- Colour / glass ------------------------------------------------- */
+  --color-glass-clear: #ffffff3d;
+  --color-glass-regular: #ffffffb8;
+  --color-glass-thick: #ffffffe0;
+  --color-glass-stroke: #ffffff8f;
+
+  /* -- Radius ---------------------------------------------------------- */
+  --radius-card: 20px;
+  --radius-panel: 28px;
+
+  /* -- Header height ----------------------------------------------------
+     Single source of truth. The bar itself, the hero's top padding, the
+     anchor scroll offset and every sticky element are all derived from it,
+     so changing this one value keeps them in step. Exposed on the spacing
+     scale, which yields h-header / pt-header / top-header, and read back in
+     JS by Header.jsx for the scroll-spy maths.
+     -------------------------------------------------------------------- */
+  --spacing-header: 120px;
+
+  /* Once the page scrolls the bar tightens up, which also shrinks the blurred
+     band behind it — at the full resting height that strip reads as a slab. */
+  --spacing-header-compact: 76px;
+
+  /* -- Type scale -------------------------------------------------------
+     Figma sets tracking in absolute px, which collapses when a 56px heading
+     scales down to 32px on a phone. Every value below is the px tracking
+     divided by its design size, so the ratio holds at any viewport.
+     -------------------------------------------------------------------- */
+
+  /* Hero headline. Figma: Open Sauce Sans ExtraBold, 60 / 68, -1.5px.
+     Line-height and tracking are stored as ratios of the 60px design size
+     (68/60 and -1.5/60) so they hold as the size clamps down to 34px. */
+  --text-display-xl: clamp(2.125rem, 1.521rem + 2.476vw, 3.75rem);
+  --text-display-xl--line-height: 1.1333;
+  --text-display-xl--letter-spacing: -0.025em;
+  --text-display-xl--font-weight: 800;
+
+  --text-display-lg: clamp(1.875rem, 1.271rem + 2.476vw, 3.5rem);
+  --text-display-lg--line-height: 1.07;
+  --text-display-lg--letter-spacing: -0.045em;
+  --text-display-lg--font-weight: 600;
+
+  --text-heading-xl: clamp(1.625rem, 1.3rem + 1.333vw, 2.5rem);
+  --text-heading-xl--line-height: 1.2;
+  --text-heading-xl--letter-spacing: -0.0375em;
+  --text-heading-xl--font-weight: 600;
+
+  --text-heading-lg: clamp(1.375rem, 1.143rem + 0.952vw, 2rem);
+  --text-heading-lg--line-height: 1.25;
+  --text-heading-lg--letter-spacing: -0.047em;
+  --text-heading-lg--font-weight: 600;
+
+  /* Card and dialog titles. Flat 20px rather than fluid: at three columns the
+     card is ~420px wide, and a title that grew to 24px on a wide screen while
+     the card stayed put just crowded the measure. Tracking is -0.5px at that
+     size, stored as the ratio so it holds if the size ever moves. */
+  --text-heading-md: 1.25rem;
+  --text-heading-md--line-height: 1.33;
+  --text-heading-md--letter-spacing: -0.025em;
+  --text-heading-md--font-weight: 700;
+
+  --text-heading-sm: clamp(1.0625rem, 0.993rem + 0.286vw, 1.25rem);
+  --text-heading-sm--line-height: 1.4;
+  --text-heading-sm--letter-spacing: 0em;
+  --text-heading-sm--font-weight: 600;
+
+  --text-body-xl: clamp(1.0625rem, 0.993rem + 0.286vw, 1.25rem);
+  --text-body-xl--line-height: 1.6;
+
+  --text-body-lg: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+  --text-body-lg--line-height: 1.667;
+
+  --text-body-md: clamp(0.9375rem, 0.914rem + 0.095vw, 1rem);
+  --text-body-md--line-height: 1.625;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.571;
+
+  --text-label-lg: 1rem;
+  --text-label-lg--line-height: 1.5;
+  --text-label-lg--font-weight: 500;
+
+  --text-label-md: 0.875rem;
+  --text-label-md--line-height: 1.429;
+  --text-label-md--font-weight: 500;
+
+  --text-label-sm: 0.75rem;
+  --text-label-sm--line-height: 1.333;
+  --text-label-sm--font-weight: 500;
+
+  --text-mono-md: 0.75rem;
+  --text-mono-md--line-height: 1.333;
+  --text-mono-md--letter-spacing: 0.333em;
+  --text-mono-md--font-weight: 500;
+
+  --text-mono-sm: 0.6875rem;
+  --text-mono-sm--line-height: 1.273;
+  --text-mono-sm--letter-spacing: 0.545em;
+  --text-mono-sm--font-weight: 500;
 }
 
 @layer base {
   html.lenis {
     scroll-behavior: auto;
   }
-
   html.lenis,
   html.lenis body {
     height: auto;
   }
-
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-surface text-ink font-sans antialiased;
+    @apply bg-muted text-ink font-sans antialiased;
     margin: 0;
+    overflow-x: hidden;
     font-feature-settings: "ss01" on;
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: white;
+    background: var(--color-brand);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Anchor targets clear the fixed header instead of hiding under it. */
+  section[id] {
+    scroll-margin-top: calc(var(--spacing-header) + 12px);
   }
 }
 
 @layer utilities {
+  /* -- Layout shell -----------------------------------------------------
+     At >=1560px this resolves to the Figma frame exactly: 1440 of content
+     inside a 240px gutter. Below that the gutter compresses fluidly.
+     -------------------------------------------------------------------- */
+  .shell {
+    /* 24px is the floor — the gutter never goes below it at any width — and it
+       opens up to 60px before the 1440 content cap takes over. */
+    --shell-pad: clamp(1.5rem, 4vw, 3.75rem);
+    width: 100%;
+    max-width: calc(1440px + var(--shell-pad) * 2);
+    margin-inline: auto;
+    padding-inline: var(--shell-pad);
+  }
+
+  /* One vertical rhythm for every section: 64px on a phone, reaching the
+     140px design value right at the 1440 breakpoint. */
+  .section-y {
+    padding-block: clamp(4rem, 9.75vw, 8.75rem);
+  }
+
+  .section-gap {
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+
+  /* -- Glass materials --------------------------------------------------
+     Three combinations, one per place Figma uses them.
+     -------------------------------------------------------------------- */
+  .glass-chip {
+    background-color: var(--color-glass-regular);
+    border: 1px solid var(--color-glass-stroke);
+    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    box-shadow:
+      inset 0 1px 1px #ffffff,
+      inset 0 -1px 1px rgba(16, 16, 24, 0.08),
+      0 2px 8px -1px rgba(16, 16, 24, 0.08);
+  }
+
+  .glass-pill {
+    background-color: var(--color-glass-clear);
+    border: 1px solid var(--color-glass-stroke);
+    backdrop-filter: blur(40px) saturate(1.5);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.95),
+      inset 0 -1px 1px rgba(16, 16, 24, 0.06),
+      0 4px 16px -2px rgba(16, 16, 24, 0.06);
+  }
+
+  .glass-card {
+    background-color: var(--color-glass-thick);
+    border: 1px solid var(--color-glass-thick);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.9),
+      inset 0 -1px 1px rgba(16, 16, 24, 0.08),
+      0 8px 24px -4px rgba(16, 16, 24, 0.08);
+  }
+
+  /* backdrop-filter is the whole look — without it the 24%-white nav pill
+     is invisible. Opaque fallbacks keep every surface readable. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-chip,
+    .glass-pill {
+      background-color: #ffffff;
+    }
+    .glass-card {
+      background-color: #f7f7fa;
+    }
+  }
+
+  .elevation-200 {
+    box-shadow:
+      0 1px 2px rgba(16, 16, 24, 0.04),
+      0 4px 8px -1px rgba(16, 16, 24, 0.07);
+  }
+
+  /* -- CTA: cursor-tracked wash + shine sweep ---------------------------
+     --mx/--my are written by lib/ctaGlow on pointermove. They default to
+     the centre so the button still reads as deliberate before the pointer
+     moves, and on touch where they are never set.
+     -------------------------------------------------------------------- */
+  .cta-glow {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      box-shadow 0.4s ease,
+      translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      scale 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.3s ease;
+  }
+
+  .cta-glow > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      160px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.38),
+      rgba(255, 255, 255, 0) 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  /* Parked off the left edge, so the clip hides it and it needs no opacity
+     of its own. transform holds the skew, translate holds the travel, so
+     the two compose instead of one overwriting the other. */
+  .cta-glow::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 36%;
+    height: 200%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.45),
+      rgba(255, 255, 255, 0)
+    );
+    transform: skewX(-18deg);
+    translate: 0;
+    /* Snaps home the instant the cursor leaves — off-canvas, so the reset
+       is invisible and there is never a sweep running backwards. */
+    transition: translate 0s;
+    pointer-events: none;
+  }
+
+  .cta-glow:hover {
+    filter: brightness(1.06);
+    translate: 0 -2px;
+    scale: 1.02;
+  }
+
+  .cta-glow:hover::before {
+    opacity: 1;
+  }
+
+  .cta-glow:hover::after {
+    translate: 460% 0;
+    transition: translate 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cta-glow:active {
+    translate: 0 0;
+    scale: 0.98;
+    transition-duration: 0.08s;
+  }
+
+  /* -- Card: cursor-tracked spotlight -----------------------------------
+     Same --mx/--my contract as .cta-glow, but tinted brand instead of white
+     because these cards sit on light fills where a white wash is invisible.
+     -------------------------------------------------------------------- */
+  .card-glow {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .card-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      240px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(71, 55, 255, 0.09),
+      rgba(71, 55, 255, 0) 68%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .card-glow:hover::before,
+  .card-glow:focus-within::before {
+    opacity: 1;
+  }
+
+  .card-glow > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* -- Footer wordmark ---------------------------------------------------
+     Sized to span its container exactly, at any width, with no JS and no
+     resize listener.
+
+     "Wajahat Sheikh" in Open Sauce Sans at 600 weight and -0.05em tracking
+     measures 694.61px wide at a 100px font-size — a width-to-font-size ratio
+     of 6.9461. So the size that fills the container is width / 6.9461, and
+     since 100cqw *is* the container's content width, that is 14.4cqw.
+
+     Re-measure this number whenever the wordmark text, the display face, its
+     weight or its tracking changes — it is metric-specific. Swapping the face
+     from Stack Sans Notch to Open Sauce Sans moved it from 15.12 to 14.4, and
+     leaving the old value overflowed the wordmark to 105% of its container.
+     -------------------------------------------------------------------- */
+  .wordmark-fit {
+    /* Fallback for engines without container query units. */
+    font-size: 13vw;
+    font-size: 14.4cqw;
+  }
+
+  /* -- Decorative gradients ------------------------------------------- */
+  .gradient-contact {
+    background-image: linear-gradient(
+      155.23deg,
+      #101018 1.13%,
+      #3529bf 36.74%,
+      #4737ff 64.72%,
+      #aca5ff 85.91%
+    );
+  }
+
+  .gradient-portrait {
+    background-image: linear-gradient(
+      229.53deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(33, 25, 118, 0.46) 65.61%,
+      #4737ff 100%
+    );
+  }
+
+  /* Stand-in covers for case studies with no artwork yet.
+     Three compositions off one palette, picked by index, so a grid that is
+     mostly placeholders does not read as one flat block of purple. */
+  .mesh-brand,
+  .mesh-brand-b,
+  .mesh-brand-c {
+    background-size: 200% 200%;
+    animation: mesh-drift 18s ease-in-out infinite;
+  }
+
+  .mesh-brand {
+    background-color: #2a1fb0;
+    background-image:
+      radial-gradient(at 20% 18%, #4737ff 0px, transparent 55%),
+      radial-gradient(at 82% 26%, #aca5ff 0px, transparent 50%),
+      radial-gradient(at 68% 84%, #3529bf 0px, transparent 55%),
+      radial-gradient(at 12% 78%, #101018 0px, transparent 50%);
+  }
+
+  .mesh-brand-b {
+    background-color: #1b1560;
+    background-image:
+      radial-gradient(at 78% 12%, #4737ff 0px, transparent 52%),
+      radial-gradient(at 18% 34%, #3529bf 0px, transparent 55%),
+      radial-gradient(at 52% 88%, #aca5ff 0px, transparent 48%),
+      radial-gradient(at 92% 72%, #101018 0px, transparent 55%);
+  }
+
+  .mesh-brand-c {
+    background-color: #3529bf;
+    background-image:
+      radial-gradient(at 46% 22%, #aca5ff 0px, transparent 46%),
+      radial-gradient(at 88% 58%, #4737ff 0px, transparent 55%),
+      radial-gradient(at 8% 66%, #101018 0px, transparent 52%),
+      radial-gradient(at 62% 96%, #2a1fb0 0px, transparent 50%);
+  }
+
+  @keyframes mesh-drift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -117,38 +538,31 @@
     scrollbar-width: none;
   }
 
-  .mesh-gradient {
-    position: relative;
-    overflow: hidden;
-    background-color: #0230f7;
-    background-image:
-      radial-gradient(at 47% 5%, #0230f7 0px, transparent 50%),
-      radial-gradient(at 68% 41%, #adbbf6 0px, transparent 50%),
-      radial-gradient(at 20% 75%, #1f68c6 0px, transparent 50%),
-      radial-gradient(at 87% 46%, #0230f7 0px, transparent 50%);
-    background-size: 220% 220%;
-    animation: mesh-gradient-drift 16s ease infinite;
+  /* Parallax layers are transformed every frame — promote them once. */
+  .will-parallax {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+}
+
+/* Motion is decoration everywhere on this page: nothing below is load-bearing
+   for reading the content, so it all collapses to a static layout. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
-  .mesh-gradient::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url(data:image/png;base64,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);
-    opacity: 0.3;
-    pointer-events: none;
-    mix-blend-mode: overlay;
+  .cta-glow:hover {
+    translate: none;
+    scale: none;
   }
 
-  @keyframes mesh-gradient-drift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  .cta-glow::after {
+    display: none;
   }
 }

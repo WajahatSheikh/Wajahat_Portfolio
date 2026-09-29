@@ -1,108 +1,138 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { Phone, ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { timeline, heroRoles } from "../data/content";
-
-const lines = ["I'm Wajahat Sheikh, a product", "designer who works with"];
+import { prefersReducedMotion, useWordReveal } from "../lib/motion";
+import { hero } from "../data/content";
+import { useContact } from "../context/ContactContext";
+import FluidCursor from "./FluidCursor";
+import HeroImageTrail from "./HeroImageTrail";
+import Button from "./ui/Button";
 
 export default function Hero() {
-  const headlineRef = useRef(null);
-  const timelineRef = useRef(null);
-  const roleRef = useRef(null);
-  const isFirstRole = useRef(true);
-  const [roleIndex, setRoleIndex] = useState(0);
+  const { openContact } = useContact();
+  const sectionRef = useRef(null);
+  const chipRef = useRef(null);
+  const ctaRef = useRef(null);
+  const headlineRef = useWordReveal({ delay: 0.15, stagger: 0.04 });
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+    if (prefersReducedMotion()) return undefined;
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.3 });
-
-      tl.fromTo(
-        headlineRef.current.querySelectorAll(".hero-line-inner"),
-        { yPercent: 110 },
-        { yPercent: 0, duration: 1, ease: "power4.out", stagger: 0.12 },
-      ).fromTo(
-        timelineRef.current,
-        { x: 30, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-        "-=0.5",
-      );
-    });
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const el = roleRef.current;
-      if (!el) return;
-      gsap.to(el, {
-        rotateX: 90,
+      // Entrance: the chip leads, the headline reveals word by word on its
+      // own timer, the CTAs land last.
+      gsap.from(chipRef.current, {
+        y: 18,
         opacity: 0,
-        duration: 0.35,
-        ease: "power2.in",
-        onComplete: () => {
-          setRoleIndex((i) => (i + 1) % heroRoles.length);
+        duration: 0.7,
+        ease: "power3.out",
+      });
+      gsap.from(ctaRef.current.children, {
+        y: 20,
+        opacity: 0,
+        duration: 0.7,
+        delay: 0.55,
+        stagger: 0.09,
+        ease: "power3.out",
+      });
+
+      // Parallax: the hero lags the scroll and dims as it leaves, so the work
+      // grid below feels like it is sliding over it rather than after it.
+      gsap.to([chipRef.current, headlineRef.current, ctaRef.current], {
+        y: 110,
+        opacity: 0.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          invalidateOnRefresh: true,
         },
       });
-    }, 2600);
-    return () => clearInterval(interval);
-  }, []);
+    }, section);
 
-  useEffect(() => {
-    const el = roleRef.current;
-    if (!el) return;
-    if (isFirstRole.current) {
-      isFirstRole.current = false;
-      return;
-    }
-    gsap.fromTo(
-      el,
-      { rotateX: -90, opacity: 0 },
-      { rotateX: 0, opacity: 1, duration: 0.35, ease: "power2.out" },
-    );
-  }, [roleIndex]);
+    return () => ctx.revert();
+  }, [headlineRef]);
 
   return (
-    <section id="top" className="relative overflow-hidden bg-surface-soft pt-24 md:pt-32 xl:pt-[240px] xl:pb-[0px]">
-      <div className="mx-auto flex max-w-[1920px] flex-col gap-12 px-5 md:px-10 lg:flex-row lg:items-center lg:gap-16 xl:gap-[165px] xl:px-[100px]">
-        <h1
-          ref={headlineRef}
-          className="max-w-2xl font-tiempos text-[32px] leading-[1.2] text-heading sm:text-[40px] lg:max-w-[789px] lg:flex-1 lg:text-[52px]"
+    <section
+      id="top"
+      ref={sectionRef}
+      className="bg-muted relative isolate overflow-hidden pt-header"
+    >
+      {/* Stacked back to front: fluid, thumbnail trail, then the type. */}
+      <FluidCursor />
+      <HeroImageTrail containerRef={sectionRef} />
+
+      <div className="relative z-10 shell flex flex-col items-center gap-5 py-14 text-center sm:gap-6 sm:py-20">
+        {/* Meta chip — stacks to two rows on narrow phones rather than
+            shrinking the type below 12px. */}
+        <div
+          ref={chipRef}
+          className="glass-chip flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full px-4 py-2"
         >
-          {lines.map((line) => (
-            <span key={line} className="hero-line block overflow-hidden">
-              <span className="hero-line-inner block">{line}</span>
+          {hero.meta.map((item, i) => (
+            <span key={item} className="flex items-center gap-3">
+              {i > 0 && (
+                <span aria-hidden="true" className="bg-brand/60 size-1 rounded-full" />
+              )}
+              <span className="text-label-sm text-ink">{item}</span>
             </span>
           ))}
-          <span className="hero-line block overflow-hidden" style={{ perspective: 600 }}>
-            <span
-              ref={roleRef}
-              className="hero-line-inner block text-accent italic"
-              style={{ transformOrigin: "50% 50%" }}
-            >
-              {heroRoles[roleIndex]}
-            </span>
-          </span>
+        </div>
+
+        {/* The measure is set in `ch`, not px, so it scales with the fluid
+            font size and holds the same ~3-line shape from laptop up instead
+            of only at one breakpoint. Below that the container is narrower
+            than 36ch and the line count grows on its own, which is the right
+            behaviour — three lines on a phone would need ~9px type.
+
+            text-balance evens the line lengths so the last line is never a
+            single orphaned word. */}
+        <h1
+          ref={headlineRef}
+          /* No weight utility — `text-display-xl` carries ExtraBold itself, the
+             way every token in this ramp carries its own weight. */
+          className="text-display-xl font-display text-ink max-w-[36ch] text-balance"
+        >
+          {hero.headline.map((part, i) =>
+            part.accent ? (
+              <span key={i} className="text-accent">
+                {part.text}
+              </span>
+            ) : (
+              <span key={i}>{part.text}</span>
+            ),
+          )}
         </h1>
 
-        <div ref={timelineRef} className="font-geist-mono text-sm lg:shrink-0">
-          <p className="text-muted lg:hidden">
-            Currently{" "}
-            <span className="font-geist font-medium text-heading">
-              @ {timeline[0].company}
-            </span>{" "}
-            · 8+ yrs experience
-          </p>
+        <div
+          ref={ctaRef}
+          className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-6"
+        >
+          <Button variant="accent" size="md" icon={Phone} onClick={openContact}>
+            Contact Me
+          </Button>
 
-          <div className="hidden grid-cols-[auto_auto_auto] gap-x-10 gap-y-2 lg:grid">
-            {timeline.map((item) => (
-              <Fragment key={item.range}>
-                <span className="whitespace-nowrap text-muted">{item.range}</span>
-                <span className="whitespace-nowrap font-geist font-medium text-heading">
-                  {item.company}
-                </span>
-                <span className="whitespace-nowrap font-geist text-muted">{item.role}</span>
-              </Fragment>
-            ))}
-          </div>
+          <Button
+            as="a"
+            href="#work"
+            variant="glass"
+            size="md"
+            icon={ChevronDown}
+            iconPosition="right"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("work")?.scrollIntoView({
+                behavior: prefersReducedMotion() ? "auto" : "smooth",
+              });
+            }}
+          >
+            Client Work
+          </Button>
         </div>
       </div>
     </section>

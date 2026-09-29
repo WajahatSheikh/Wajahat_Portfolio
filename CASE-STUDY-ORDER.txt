@@ -1,0 +1,65 @@
+﻿CASE STUDY ORDER
+================
+
+Yeh aap ki 10 case studies hain, abhi jis order mein site par hain.
+
+KAISE USE KAREIN:
+  1. Blocks ko upar-neeche move kar ke apna order bana lein.
+  2. Numbers theek karne ki zaroorat NAHI - main order lines se parh lunga.
+  3. File save karein aur mujhe bata dein.
+
+  Koi project hatana ho to us ka poora block delete kar dein.
+  Title ya subtitle badalna ho to yahin edit kar dein, main utha lunga.
+
+  [COVER]      = asli artwork laga hua hai
+  [NO COVER]   = abhi placeholder chal raha hai
+
+----------------------------------------------------------------------
+
+01.  Goalytics: The AI Engine Behind Every Goal
+    SaaS Product Design · Web App · Goalytics
+    [COVER]
+
+02.  Management System for the Biggest Logistics Firm in UAE
+    Management System · Web App · Digital Gravity
+    [NO COVER]
+
+03.  Quiz to Customized Health Pack in Minutes
+    Web Design · Website · Digital Gravity
+    [NO COVER]
+
+04.  University of Sharjah
+    Web Design · Website · Digital Gravity
+    [COVER]
+
+05.  High School to University — in Just 03 Clicks!
+    Product Design · Mobile App · Paramount Students
+    [NO COVER]
+
+06.  A Space for Students to Belong, Create, and Connect
+    Product Design · Mobile App · Paramount Students
+    [NO COVER]
+
+07.  Centralized Admission Dashboard for Universities
+    Management System · Web App · Paramount Students
+    [COVER]
+
+08.  Where Kids Learn by Playing | 20+ Games
+    Game Design · Mobile App · SABAQ
+    [COVER]
+
+09.  Flutter Word
+    Game Design · Mobile App · SABAQ
+    [COVER]
+
+10.  Strike A Balance
+    Game Design · Mobile App · SABAQ
+    [COVER]
+
+----------------------------------------------------------------------
+
+Abhi cover kis kis ka baaki hai:
+  - Management System for the Biggest Logistics Firm in UAE
+  - Quiz to Customized Health Pack in Minutes
+  - High School to University — in Just 03 Clicks!
+  - A Space for Students to Belong, Create, and Connect

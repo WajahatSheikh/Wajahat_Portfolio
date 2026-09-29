@@ -1,105 +1,248 @@
+// All site copy lives here. Components import from this file rather than
+// hardcoding text, so changing wording never means touching JSX.
+
+// Order matches the order the sections appear in App.jsx. Anchor links that
+// run backwards against the page order feel broken, so keep the two in sync.
 export const nav = [
-  { label: "Project", href: "#projects" },
-  { label: "About Me", href: "#about" },
-  { label: "Skills", href: "#what-i-do" },
+  { label: "Selected Work", href: "#work" },
+  { label: "What I Do", href: "#capabilities" },
+  { label: "Experience", href: "#experience" },
   { label: "Tech Stack", href: "#tech-stack" },
-  { label: "Testimonial", href: "#testimonials" },
+  { label: "About Me", href: "#about" },
+  { label: "Testimonials", href: "#testimonials" },
 ];
 
-export const resumeLink = "#";
+// The Drive *view* URL (…/file/d/<id>/view) serves an HTML preview page, not
+// the file — this is Drive's direct-download form, which returns the PDF
+// itself. Verified: 200, application/octet-stream, ~129 KB, no sign-in needed.
+// If the file is ever re-uploaded, only the id below changes.
+export const resumeLink =
+  "https://drive.google.com/uc?export=download&id=1OsUCe6jQ3pU9tASMLeFacvWLUyQL9B9J";
 
-export const heroRoles = [
-  "engineers.",
-  "tech startups.",
-  "product owners.",
-  "business owners.",
-  "founders.",
+export const hero = {
+  meta: ["Sr. Product Designer", "+ 08 Years Experience", "Based in Karachi, PK"],
+  headline: [
+    { text: "I'm Wajahat Sheikh, a " },
+    { text: "Sr. Product Designer", accent: true },
+    { text: " who turns complex problems into products people love, from zero to launch." },
+  ],
+};
+
+export const sectionCopy = {
+  work: {
+    eyebrow: "Selected Work",
+    // `{count}` is filled from projects.length so the number can never drift
+    // out of sync with the grid below it.
+    title: "{count} Case Studies.",
+    intro:
+      "Each one shipped. The case studies are available on request — or ask me to walk you through the messy middle, which is where the real decisions live.",
+  },
+  capabilities: {
+    eyebrow: "What I Do",
+    title: "Expertise that ships.",
+    intro:
+      "Every skill here has been pressure-tested across real products, real users and real deadlines. Not theory, output.",
+  },
+  experience: {
+    eyebrow: "Experience",
+    title: "Where I've done it.",
+    intro: "+8 years, four roles, two countries. Reverse chronological — most recent first.",
+  },
+  techStack: {
+    eyebrow: "Tech Stack",
+    title: "What I work in.",
+    intro:
+      "The kit behind the work — what each tool actually earns its place doing, not just a logo wall.",
+  },
+  about: {
+    eyebrow: "About",
+    title: "\u{1F44B} Hello",
+  },
+  testimonials: {
+    eyebrow: "Testimonials",
+    title: "Clients, colleagues & founders.",
+    intro:
+      "Collaboration doesn't stop once the project ships. Here are some of the people I've built with — and would gladly team up with again.",
+  },
+};
+
+// Thumbnails that trail the cursor across the hero. Kept to eight of the
+// twenty-eight available in /public/Header Fluid — they are 200-700 KB each,
+// and past about eight the effect reads as noise rather than a portfolio.
+// Paths are pre-encoded because the filenames contain spaces.
+export const heroTrail = [
+  "/Header%20Fluid/1%201.png",
+  "/Header%20Fluid/Rectangle%202.png",
+  "/Header%20Fluid/image%2037.png",
+  "/Header%20Fluid/image-2.png",
+  "/Header%20Fluid/5%201.png",
+  "/Header%20Fluid/Rectangle%203.png",
+  "/Header%20Fluid/image-1.png",
+  "/Header%20Fluid/imgi_7_nbucnyvpl2dkpiqqdv52%201.png",
 ];
 
-export const timeline = [
-  {
-    range: "Aug 2024 – Present",
-    company: "Digital Gravity (Goalytics)",
-    role: "Sr. Product Designer",
-  },
-  {
-    range: "Jan 2022 – Aug 2024",
-    company: "Paramount Students",
-    role: "Head of Product Design",
-  },
-  {
-    range: "Apr 2020 – Oct 2020",
-    company: "Digital Gravity",
-    role: "UI/UX Designer",
-  },
-  {
-    range: "Dec 2017 – Apr 2020",
-    company: "SABAQ · Multinet Pakistan",
-    role: "Game UI/UX Designer",
-  },
-];
+export const showreel = {
+  // The looping preview is a 1920x1080 GIF and the full reel an MP4. Both are
+  // large (43 MB / 34 MB) — see the note in CLAUDE.md before shipping.
+  poster: "/videos/yms.gif",
+  video: "/videos/yms%20video%20v2.mp4",
+  playLabel: "Play showreel",
+  closeLabel: "Close showreel",
+};
 
+// Shown on the hover overlay of any card that does not set its own
+// `hoverLabel`. One default rather than the same string repeated ten times.
+export const projectHoverLabel = "Upload Coming Soon";
+
+// Order is the order they appear in the grid. Subtitles are stored in normal
+// case and uppercased in CSS — the data stays readable and the styling stays
+// one change away.
 export const projects = [
   {
     title: "Goalytics: The AI Engine Behind Every Goal",
-    tags: ["Product Design", "progressing"],
+    subtitle: "SaaS Product Design · Web App · Goalytics",
     image: null,
     featuredBg: true,
+    hoverLabel: "In Progress",
   },
   {
-    title: "Management system Biggest logistic firm in UAE",
-    tags: ["web management system", "delivered 2026"],
+    title: "Management System for the Biggest Logistics Firm in UAE",
+    subtitle: "Management System · Web App · Digital Gravity",
     image: null,
+  },
+  {
+    title: "Quiz to Customized Health Pack in Minutes",
+    subtitle: "Web Design · Website · Digital Gravity",
+    image: null,
+  },
+  {
+    title: "University of Sharjah",
+    subtitle: "Web Design · Website · Digital Gravity",
+    image: "university-of-sharjah",
   },
   {
     title: "High School to University — in Just 03 Clicks!",
-    tags: ["Mobile app", "delivered 2023"],
+    subtitle: "Product Design · Mobile App · Paramount Students",
+    image: null,
+    // Cards with a slug open /projects/<slug>; the rest stay non-clickable
+    // until their case study is written.
+    slug: "high-school-to-university",
+  },
+  {
+    title: "A Space for Students to Belong, Create, and Connect",
+    subtitle: "Product Design · Mobile App · Paramount Students",
     image: null,
   },
   {
-    title: "Where Kids Learn by Playing",
-    tags: ["game design", "Mobile app", "delivered 2023"],
-    image: null,
+    title: "Centralized Admission Dashboard for Universities",
+    subtitle: "Management System · Web App · Paramount Students",
+    image: "centralized-admission-dashboard",
   },
   {
-    title: "Centralized Admission System dashboard for Universities",
-    tags: ["web management system", "delivered 2023"],
-    image: null,
-  },
-  {
-    title: "Quiz to Customized Health Pack in few minutes",
-    tags: ["Website", "delivered 2023"],
-    image: null,
-  },
-  {
-    title: "University Of Sharjah",
-    tags: ["website", "delivered 2023"],
-    image: null,
-  },
-  {
-    title: "A Space for Students to Belong, Create, and Connect.",
-    tags: ["Mobile app", "delivered 2023"],
-    image: null,
+    title: "Where Kids Learn by Playing | 20+ Games",
+    subtitle: "Game Design · Mobile App · SABAQ",
+    image: "where-kids-learn-by-playing",
   },
   {
     title: "Flutter Word",
-    tags: ["game design", "Mobile app", "delivered 2023"],
+    subtitle: "Game Design · Mobile App · SABAQ",
     image: "flutter-word",
   },
   {
     title: "Strike A Balance",
-    tags: ["game design", "Mobile app", "delivered 2023"],
+    subtitle: "Game Design · Mobile App · SABAQ",
     image: "strike-a-balance",
   },
+];
+
+// Numbers are rendered from the index, not stored — an earlier revision of this
+// list skipped 11 and shipped a stray 12, which is the drift storing them invites.
+//
+// `preview` is the artwork that follows the cursor on hover. Null falls back to
+// a plain black card; drop a GIF/image path in to replace it per row.
+export const capabilities = [
   {
-    title: "Arcfix save the polar bear",
-    tags: ["game design", "Mobile app", "delivered 2023"],
-    image: "arcfix",
+    title: "AI-Powered Product Design",
+    description:
+      "Design intelligent interfaces where AI feels intuitive, not overwhelming. Prompt UX, contextual recommendations, confidence scoring, and human-in-the-loop patterns that build user trust.",
+    preview: null,
   },
   {
-    title: "Campus Housing in Your Pocket",
-    tags: ["Mobile app", "delivered 2023"],
-    image: null,
+    title: "Design Systems",
+    description:
+      "Build and govern token architectures, multi-variant component APIs, and contribution models that keep design and engineering shipping in sync — from startup speed to enterprise governance.",
+    preview: null,
+  },
+  {
+    title: "Mobile App",
+    description:
+      "iOS and Android experiences rooted in platform conventions. Gesture-driven navigation, adaptive layouts, offline-ready architecture, and WCAG-compliant accessibility baked in from day one.",
+    preview: null,
+  },
+  {
+    title: "End-to-End SaaS Design",
+    description:
+      "From onboarding funnels to data-heavy dashboards — I turn complex B2B workflows into interfaces teams actually adopt. Role-based views, dense data patterns, and self-serve experiences that reduce support load.",
+    preview: null,
+  },
+  {
+    title: "Web Design",
+    description:
+      "High-performing marketing sites and landing pages engineered for conversion. Information hierarchy, responsive systems, performance-first layouts, and copy-design alignment that drives real business results.",
+    preview: null,
+  },
+  {
+    title: "Management System",
+    description:
+      "Complex workflows made simple. CRMs, admin consoles, and back-office platforms built for power users — table-dense layouts, bulk actions, keyboard-first navigation, and role-based access patterns.",
+    preview: null,
+  },
+  {
+    title: "Game UI/UX Design",
+    description:
+      "Award-winning game and learning interfaces. Engagement loops, achievement systems, age-appropriate interactions, and structured playtesting that validate designs with real users before launch.",
+    preview: null,
+  },
+  {
+    title: "Brand & Visual Identity",
+    description:
+      "Strategic brand systems — logo architecture, type hierarchies, color frameworks, and comprehensive guidelines that stay consistent from pitch deck to production, across every touchpoint.",
+    preview: null,
+  },
+];
+
+export const experience = [
+  {
+    range: "Aug 2024 — Present",
+    company: "Digital Gravity",
+    role: "Sr. Product Designer",
+    location: "Karachi, PK",
+    description:
+      "Architected an AI-powered OKR SaaS platform from ideation to production-ready delivery — UX architecture, a scalable UI system, and the responsive framework underneath it.",
+  },
+  {
+    range: "Jan 2022 — Aug 2024",
+    company: "Paramount Students",
+    role: "Head of Product Design",
+    location: "Istanbul, TR",
+    description:
+      "Led three integrated platforms and a team of 10+ designers across multiple nationalities, shipping every product on time inside agile MVP cycles.",
+  },
+  {
+    range: "Apr 2020 — Oct 2020",
+    company: "Digital Gravity",
+    role: "UI/UX Designer",
+    location: "Karachi, PK",
+    description:
+      "Delivered 6+ products across health, real estate, petroleum, logistics, and retail — discovery and visual design through to developer handoff.",
+  },
+  {
+    range: "Dec 2017 — Apr 2020",
+    company: "SABAQ · Multinet Pakistan",
+    role: "Game UI/UX Designer",
+    location: "Karachi, PK",
+    description:
+      "Designed 25+ award-winning EdTech games for the MUSE Learning App, with gameplay mechanics mapped directly to school curricula.",
   },
 ];
 
@@ -134,64 +277,20 @@ export const aboutParagraphs = [
   ],
 ];
 
+export const quickFacts = [
+  { label: "Based in", value: "Karachi, PK" },
+  { label: "Experience", value: "8+ years" },
+  { label: "Worked across", value: "Pakistan & Türkiye" },
+  { label: "Teams led", value: "10+ designers" },
+  { label: "Products shipped", value: "30+" },
+];
+
 export const badges = [
   { name: "GESS Education Awards", file: "gess-award" },
   { name: "PDA Best Digital Innovation", file: "pda" },
   { name: "National Innovation Awards", file: "national-innovation" },
   { name: "Next Billion EdTech Prize", file: "next-billion" },
   { name: "P@SHA ICT Awards", file: "pasha" },
-];
-
-export const services = [
-  {
-    number: "01",
-    title: "Brand Identity Design",
-    description:
-      "Logos, typography and visual language that make a company recognizable at a glance.",
-    preview: null,
-  },
-  {
-    number: "02",
-    title: "Design System",
-    description:
-      "Tokens, components and documentation so every team ships the same product, faster.",
-    preview: null,
-  },
-  {
-    number: "03",
-    title: "Mobile App",
-    description:
-      "iOS and Android flows designed around thumbs, context and one-handed use.",
-    preview: null,
-  },
-  {
-    number: "04",
-    title: "SaaS Platform",
-    description:
-      "Dashboards, data and dense workflows made calm enough to live in every day.",
-    preview: null,
-  },
-  {
-    number: "05",
-    title: "Website",
-    description:
-      "Marketing sites that load fast, read clearly and turn visitors into conversations.",
-    preview: null,
-  },
-  {
-    number: "06",
-    title: "Management System",
-    description:
-      "Admin panels, CRMs and internal tools built for speed over decoration.",
-    preview: null,
-  },
-  {
-    number: "07",
-    title: "Game Design",
-    description:
-      "Game UI, HUDs and onboarding that keep players in the world, not in the menu.",
-    preview: null,
-  },
 ];
 
 export const techStack = [
@@ -335,14 +434,63 @@ export const testimonials = [
   },
 ];
 
+export const contactCta = {
+  eyebrow: "Let's talk",
+  title: "Hiring for a senior or lead product design role?",
+  cta: "Contact Me",
+};
+
 export const contact = {
   email: "wajahat.sheikh@outlook.com",
   whatsapp: "+92-322-2600-937",
   location: "Karachi, PK",
-  socials: [
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Medium", href: "https://medium.com" },
-    { label: "X (Twitter)", href: "https://x.com" },
-    { label: "WhatsApp", href: "https://wa.me/923222600937" },
+};
+
+// wa.me wants digits only — no +, spaces or dashes. Derived from the number
+// above so the display format and the link can never drift apart.
+export const whatsappLink = `https://wa.me/${contact.whatsapp.replace(/\D/g, "")}`;
+
+export const footer = {
+  name: "Wajahat Sheikh",
+  tagline: "Sr. Product Designer · AI SaaS, EdTech & platform products",
+  availability: "Open to senior & lead roles",
+  // The large closing line. The tagline is metadata and reads badly at display
+  // size — set big, it wrapped onto a line starting with its own separator.
+  statement: "Let's build something worth shipping.",
+  // Set oversized across the base of the footer and clipped by it.
+  wordmark: "Wajahat Sheikh",
+  // Grouped rather than one flat row: a footer link list reads as navigation,
+  // and five undifferentiated links give the eye nowhere to start.
+  columns: [
+    {
+      title: "Say hello",
+      // The address and number are the labels — under a "Say hello" heading
+      // they are more useful visible than hidden behind the word "Email".
+      // Tapping the number opens WhatsApp straight onto this contact.
+      wide: true,
+      links: [
+        { label: contact.email, href: `mailto:${contact.email}` },
+        { label: contact.whatsapp, href: whatsappLink },
+      ],
+    },
+    {
+      title: "Elsewhere",
+      links: [
+        {
+          label: "LinkedIn",
+          href: "https://www.linkedin.com/in/wajahat-sheikh-%C2%A9-539542184/",
+        },
+        { label: "Behance", href: "https://www.behance.net/wajahatshykh" },
+        { label: "Dribbble", href: "https://dribbble.com/WajahatShykh" },
+        { label: "Instagram", href: "https://www.instagram.com/wajahat_designs/" },
+        { label: "Medium", href: "https://medium.com/@vajatshaykh" },
+      ],
+    },
   ],
+  // Drives the live clock — a designer's footer that knows what time it is
+  // where they are reads as a person rather than a template.
+  timeZone: "Asia/Karachi",
+  locationLabel: "Karachi, PK",
+  backToTop: "Back to top",
+  copyright: "© 2026 Wajahat Sheikh",
 };

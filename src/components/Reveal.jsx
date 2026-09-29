@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { gsap, ScrollTrigger } from "../lib/gsap";
+import { prefersReducedMotion } from "../lib/motion";
 
 export default function Reveal({
   as: Tag = "div",
@@ -18,6 +19,11 @@ export default function Reveal({
     const el = ref.current;
     if (!el) return undefined;
 
+    // Nothing here carries meaning the layout does not already carry, so the
+    // reduced-motion path is simply "already visible" rather than a shorter
+    // tween. Bailing before the fromTo also avoids leaving opacity:0 behind.
+    if (prefersReducedMotion()) return undefined;
+
     const targets = stagger ? el.children : el;
 
     const ctx = gsap.context(() => {
@@ -34,6 +40,7 @@ export default function Reveal({
           scrollTrigger: {
             trigger: el,
             start,
+            invalidateOnRefresh: true,
           },
         },
       );

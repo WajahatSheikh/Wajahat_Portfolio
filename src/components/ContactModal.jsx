@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy, Mail, MessageCircle, X } from "lucide-react";
 import { gsap } from "../lib/gsap";
+import { prefersReducedMotion } from "../lib/motion";
 import { contact } from "../data/content";
 import { useContact } from "../context/ContactContext";
 
@@ -18,27 +19,44 @@ function CopyRow({ icon: Icon, iconBg, label, value }) {
   };
 
   return (
-    <div className="flex w-full items-center gap-3">
+    /* The whole row is the copy target, not just the trailing icon — a 44px
+       button floating at the far edge of a wide row is a small target for a
+       thumb and gives no feedback that the row itself is interactive. */
+    <button
+      type="button"
+      aria-label={`Copy ${label}: ${value}`}
+      data-cursor="hover"
+      onClick={handleCopy}
+      className="group border-line-subtle bg-canvas hover:border-brand/30 flex w-full items-center gap-3.5 rounded-card border p-3 text-left transition-colors duration-300 sm:gap-4 sm:p-3.5"
+    >
       <span
-        className="flex shrink-0 items-center justify-center rounded-lg p-2 text-white"
+        aria-hidden="true"
+        className="grid size-10 shrink-0 place-items-center rounded-xl text-white sm:size-11"
         style={{ backgroundColor: iconBg }}
       >
-        <Icon size={24} />
+        <Icon size={20} />
       </span>
-      <div className="min-w-0 flex-1">
-        <p className="font-geist-mono text-xs text-muted uppercase">{label}</p>
-        <p className="truncate font-geist text-[15px] text-heading">{value}</p>
-      </div>
-      <button
-        type="button"
-        aria-label={`Copy ${label}`}
-        data-cursor="hover"
-        onClick={handleCopy}
-        className="flex size-7 shrink-0 items-center justify-center rounded-md text-muted transition-colors hover:text-accent"
+
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-mono-sm font-mono text-ink-faint uppercase">{label}</span>
+        <span className="text-label-md text-ink truncate">{value}</span>
+      </span>
+
+      <span
+        aria-hidden="true"
+        className={`grid size-9 shrink-0 place-items-center rounded-lg transition-colors duration-200 ${
+          copied ? "text-emerald-600" : "text-ink-faint group-hover:bg-brand-subtle group-hover:text-brand"
+        }`}
       >
-        {copied ? <Check size={15} className="text-emerald-500" /> : <Copy size={15} />}
-      </button>
-    </div>
+        {copied ? <Check size={17} /> : <Copy size={17} />}
+      </span>
+
+      {/* Announced politely so a screen reader confirms the copy without
+          stealing focus from the row. */}
+      <span aria-live="polite" className="sr-only">
+        {copied ? `${label} copied` : ""}
+      </span>
+    </button>
   );
 }
 
@@ -57,12 +75,17 @@ export default function ContactModal() {
     document.body.style.overflow = "hidden";
 
     gsap.set(backdropRef.current, { display: "flex" });
-    gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-    gsap.fromTo(
-      modalRef.current,
-      { opacity: 0, y: 16, scale: 0.96 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "power3.out" },
-    );
+
+    if (prefersReducedMotion()) {
+      gsap.set([backdropRef.current, modalRef.current], { opacity: 1, y: 0, scale: 1 });
+    } else {
+      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 });
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0, y: 16, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "power3.out" },
+      );
+    }
 
     return () => {
       window.removeEventListener("keydown", onKey);
@@ -87,37 +110,43 @@ export default function ContactModal() {
     <div
       ref={backdropRef}
       onClick={(e) => e.target === backdropRef.current && handleClose()}
-      className="fixed inset-0 z-[90] hidden items-start justify-center bg-heading/20 px-5 pt-28"
+      /* Centred on a phone rather than pinned near the top: at 390px the sheet
+         is most of the screen, and a top-anchored dialog leaves a large dead
+         band underneath it. */
+      className="bg-night/45 fixed inset-0 z-90 hidden items-center justify-center overflow-y-auto p-5 backdrop-blur-sm sm:items-start sm:pt-28"
       style={{ display: "none" }}
     >
       <div
         ref={modalRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Get in touch"
-        className="flex w-full max-w-[380px] flex-col gap-4 rounded-2xl bg-white p-5 shadow-[0_4px_12px_rgba(12,12,13,0.1),0_1px_4px_rgba(12,12,13,0.05)]"
+        aria-labelledby="contact-modal-title"
+        className="glass-card rounded-panel flex w-full max-w-[420px] flex-col gap-5 p-5 sm:gap-6 sm:p-6"
       >
-        <div className="flex w-full items-center justify-between">
-          <h3 className="font-geist text-lg leading-6 font-semibold text-heading">Get in Touch</h3>
+        <div className="flex w-full items-start justify-between gap-4">
+          <div className="flex flex-col gap-1.5">
+            <p className="text-mono-md font-mono text-brand uppercase">Let&apos;s talk</p>
+            <h3 id="contact-modal-title" className="text-heading-md font-display text-ink">
+              Get in Touch
+            </h3>
+            <p className="text-body-sm text-ink-soft">I usually reply within a day.</p>
+          </div>
+
+          {/* Pulled into the padding so the icon's optical edge lines up with
+              the panel's inner edge, and sized to a 40px target. */}
           <button
             type="button"
             aria-label="Close"
             data-cursor="hover"
             onClick={handleClose}
-            className="text-muted transition-colors hover:text-heading"
+            className="text-ink-faint hover:bg-canvas hover:text-ink -mt-1 -mr-1 grid size-10 shrink-0 place-items-center rounded-lg transition-colors"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
-        <p className="font-geist text-sm leading-[22px] text-muted">
-          I usually reply within a day.
-        </p>
-
-        <div className="h-px w-full bg-muted/15" />
-
-        <div className="flex w-full flex-col gap-4">
-          <CopyRow icon={Mail} iconBg="#f77332" label="Email" value={contact.email} />
+        <div className="flex w-full flex-col gap-2.5">
+          <CopyRow icon={Mail} iconBg="#4737ff" label="Email" value={contact.email} />
           <CopyRow icon={MessageCircle} iconBg="#25D366" label="WhatsApp" value={contact.whatsapp} />
         </div>
       </div>
